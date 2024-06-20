@@ -1,60 +1,52 @@
 import { BrowserRouter, Navigate } from 'react-router-dom'
 import { Routes, Route, NavLink } from 'react-router-dom'
 
+import { Suspense } from 'react'
+
 import logo from '../assets/react.svg'
-import {
-  LazyPageOne,
-  LazyPageThree,
-  LazyPageTwo,
-} from '../01-lazy-load/pages/index'
+
+import { routes, RouteType } from './routes'
 
 const Navigation = () => {
   return (
-    <>
-      <BrowserRouter>
-        <div className='main-layout'>
-          <nav>
-            <img src={logo} alt='React Logo' />
+    <BrowserRouter>
+      <div className='main-layout'>
+        <nav>
+          <img src={logo} alt='React Logo' />
 
-            <ul>
-              <li>
+          <ul>
+            {routes.map((route: RouteType) => (
+              <li key={route.path}>
                 <NavLink
-                  to='/lazy-one'
+                  to={route.to}
                   className={({ isActive }) => (isActive ? 'nav-active' : '')}
                 >
-                  Lazy One
+                  {route.name}
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to='/lazy-two'
-                  className={({ isActive }) => (isActive ? 'nav-active' : '')}
-                >
-                  Lazy Two
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to='/lazy-three'
-                  className={({ isActive }) => (isActive ? 'nav-active' : '')}
-                >
-                  Lazy Three
-                </NavLink>
-              </li>
-            </ul>
-          </nav>
+            ))}
+          </ul>
+        </nav>
 
-          <div className='container'>
+        <div className='container'>
+          <Suspense fallback={<span>Loading...</span>}>
             <Routes>
-              <Route path='/lazy-one' element={<LazyPageOne />} />
-              <Route path='/lazy-two' element={<LazyPageTwo />} />
-              <Route path='/lazy-three' element={<LazyPageThree />} />
-              <Route path='/*' element={<Navigate to='/lazy-one' replace />} />
+              {routes.map((route: RouteType) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={<route.Component />}
+                />
+              ))}
+              <Route
+                path='/*'
+                element={<Navigate to={routes[0].to} replace />}
+              />
             </Routes>
-          </div>
+          </Suspense>
         </div>
-      </BrowserRouter>
-    </>
+      </div>
+    </BrowserRouter>
   )
 }
 export default Navigation
