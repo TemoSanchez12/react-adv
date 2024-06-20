@@ -1,4 +1,5 @@
 import { lazy, LazyExoticComponent } from 'react'
+import NoLazy from '../01-lazy-load/pages/NoLazy'
 
 type JSXComponent = () => JSX.Element
 
@@ -10,31 +11,21 @@ export interface RouteType {
 }
 
 // prettier-ignore
-const LazyOne = lazy(() => import(/* webpackChunckName: "LazyPage1"*/'../01-lazy-load/pages/LazyPageOne'))
-// prettier-ignore
-const LazyTwo = lazy(() => import(/* webpackChunckName: "LazyPage2"*/'../01-lazy-load/pages/LazyPageTwo'))
-// prettier-ignore
-const LazyThree = lazy(() => import(/* webpackChunckName: "LazyPage3"*/'../01-lazy-load/pages/LazyPageThree'))
+const LazyLayout = lazy(() => import(/* webpackChunckName: "LazyLayoutPage"*/'../01-lazy-load/layout/LazyLayout'))
 
 // Prettier
 
 export const routes: RouteType[] = [
   {
-    to: '/lazy-one',
-    path: 'lazy-one',
-    Component: LazyOne,
-    name: 'Lazy One',
+    to: '/lazyload',
+    path: '/lazyload/*',
+    Component: LazyLayout,
+    name: 'Lazy Load',
   },
   {
-    to: '/lazy-two',
-    path: 'lazy-two',
-    Component: LazyTwo,
-    name: 'Lazy Two',
-  },
-  {
-    to: '/lazy-three',
-    path: 'lazy-three',
-    Component: LazyThree,
-    name: 'Lazy Three',
+    to: '/no-lazy',
+    path: 'no-lazy',
+    Component: NoLazy,
+    name: 'No Lazy',
   },
 ]
