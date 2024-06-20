@@ -20,6 +20,10 @@ code {
   flex-direction: row;
 }
 
+.container {
+  padding: 20px;
+}
+
 .main-layout img {
   width: 100%;
   max-width: 80px;
