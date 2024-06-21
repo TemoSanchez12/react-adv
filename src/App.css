@@ -20,11 +20,6 @@ code {
   flex-direction: row;
 }
 
-.main-layout img {
-  width: 100%;
-  max-width: 80px;
-}
-
 nav {
   background-color: #363a45;
   height: 100vh;
