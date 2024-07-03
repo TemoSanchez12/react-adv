@@ -1,5 +1,5 @@
-import { ProductButtons, ProductImage, ProductTitle } from '../components'
 import ProductCard from '../components/ProductCard'
+import { ProductButtons, ProductImage, ProductTitle } from '../components'
 
 import '../styles/custom-styles.css'
 
@@ -36,9 +36,19 @@ const ShoppingPage = () => {
       >
         {products.map(product => (
           <ProductCard key={product.id} product={product} className='bg-dark'>
+            <ProductImage className='custom-image' />
+            <ProductTitle className='text-light' />
+            <ProductButtons className='text-light custom-buttons' />
+          </ProductCard>
+        ))}
+        {products.map(product => (
+          <ProductCard key={product.id} product={product} className='bg-dark'>
             <ProductImage />
-            <ProductTitle />
-            <ProductButtons />
+            <ProductTitle style={{ color: 'red' }} />
+            <ProductButtons
+              className='text-light custom-buttons'
+              style={{ display: 'flex', justifyContent: 'end' }}
+            />
           </ProductCard>
         ))}
       </div>
