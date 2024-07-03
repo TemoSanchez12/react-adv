@@ -8,22 +8,23 @@ import { Product, ProductContextProps } from '../interfaces/interfaces'
 interface ProductCardProps {
   product: Product
   children?: ReactElement | ReactElement[]
+  className?: string
 }
 
 export const ProductContext = createContext<ProductContextProps>({} as ProductContextProps)
 
-const ProductCard = ({ children, product }: ProductCardProps) => {
+const ProductCard = ({ children, product, className }: ProductCardProps) => {
   const { counter, increaseBy } = useProduct()
 
   return (
-    <div className={styles.productCard}>
+    <div className={`${styles.productCard} ${className || ''}`}>
       <ProductContext.Provider value={{ product, counter, increaseBy }}>{children}</ProductContext.Provider>
     </div>
   )
 }
 
-ProductCard.Title = ProductTitle
 ProductCard.Image = ProductImage
+ProductCard.Title = ProductTitle
 ProductCard.Buttons = ProductButtons
 
 export default ProductCard

@@ -3,10 +3,14 @@ import styles from '../styles/styles.module.css'
 import { useContext } from 'react'
 import { ProductContext } from './ProductCard'
 
-export const ProductImage = ({ image = '', title = '' }) => {
+export const ProductImage = ({ image = '', title = '', className = '' }) => {
   const { product } = useContext(ProductContext)
 
   return (
-    <img src={image || product.image || noImage} alt={title || product.title} className={styles.productImg} />
+    <img
+      src={image || product.image || noImage}
+      alt={title || product.title}
+      className={`${styles.productImg} ${className || ''}`}
+    />
   )
 }

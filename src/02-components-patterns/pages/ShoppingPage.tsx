@@ -1,4 +1,7 @@
+import { ProductButtons, ProductImage, ProductTitle } from '../components'
 import ProductCard from '../components/ProductCard'
+
+import '../styles/custom-styles.css'
 
 const products = [
   {
@@ -32,10 +35,10 @@ const ShoppingPage = () => {
         }}
       >
         {products.map(product => (
-          <ProductCard key={product.id} product={product}>
-            <ProductCard.Image />
-            <ProductCard.Title />
-            <ProductCard.Buttons />
+          <ProductCard key={product.id} product={product} className='bg-dark'>
+            <ProductImage />
+            <ProductTitle />
+            <ProductButtons />
           </ProductCard>
         ))}
       </div>
