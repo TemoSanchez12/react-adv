@@ -1,26 +1,13 @@
 import ProductCard from '../components/ProductCard'
 import { ProductButtons, ProductImage, ProductTitle } from '../components'
+import { products } from '../data/products'
 
 import '../styles/custom-styles.css'
-
-const products = [
-  {
-    id: '1',
-    title: 'Coffee Mug - Dev',
-    image: './coffee-mug.png',
-  },
-  {
-    id: '2',
-    title: 'Coffee Mug - Process',
-  },
-  {
-    id: '3',
-    title: 'Coffee Mug - Code',
-    image: './coffee-mug.png',
-  },
-]
+import useShoppingCart from '../hooks/useShoppingCart'
 
 const ShoppingPage = () => {
+  const { shoppingCart, onProductCountChange } = useShoppingCart()
+
   return (
     <section>
       <h1>Shopping Store</h1>
@@ -35,20 +22,31 @@ const ShoppingPage = () => {
         }}
       >
         {products.map(product => (
-          <ProductCard key={product.id} product={product} className='bg-dark'>
+          <ProductCard
+            key={product.id}
+            product={product}
+            className='bg-dark'
+            onChange={onProductCountChange}
+            value={shoppingCart[product.id]?.count || 0}
+          >
             <ProductImage className='custom-image' />
             <ProductTitle className='text-light' />
             <ProductButtons className='text-light custom-buttons' />
           </ProductCard>
         ))}
-        {products.map(product => (
-          <ProductCard key={product.id} product={product} className='bg-dark'>
+      </div>
+
+      <div className='shopping-car'>
+        {Object.values(shoppingCart).map(product => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            style={{ width: '100px' }}
+            value={product.count}
+            onChange={onProductCountChange}
+          >
             <ProductImage />
-            <ProductTitle style={{ color: 'red' }} />
-            <ProductButtons
-              className='text-light custom-buttons'
-              style={{ display: 'flex', justifyContent: 'end' }}
-            />
+            <ProductButtons />
           </ProductCard>
         ))}
       </div>

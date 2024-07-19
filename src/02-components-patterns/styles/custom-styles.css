@@ -18,3 +18,9 @@
   color: #ddd;
   border-color: #ddd;
 }
+
+.shopping-car {
+  position: fixed;
+  right: 10px;
+  top: 50px;
+}
