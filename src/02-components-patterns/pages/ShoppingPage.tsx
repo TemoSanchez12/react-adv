@@ -3,11 +3,8 @@ import { ProductButtons, ProductImage, ProductTitle } from '../components'
 import { products } from '../data/products'
 
 import '../styles/custom-styles.css'
-import useShoppingCart from '../hooks/useShoppingCart'
 
 const ShoppingPage = () => {
-  const { shoppingCart, onProductCountChange } = useShoppingCart()
-
   return (
     <section>
       <h1>Shopping Store</h1>
@@ -26,27 +23,22 @@ const ShoppingPage = () => {
             key={product.id}
             product={product}
             className='bg-dark'
-            onChange={onProductCountChange}
-            value={shoppingCart[product.id]?.count || 0}
+            initialValues={{
+              count: 4,
+              maxCount: 10,
+            }}
           >
-            <ProductImage className='custom-image' />
-            <ProductTitle className='text-light' />
-            <ProductButtons className='text-light custom-buttons' />
-          </ProductCard>
-        ))}
-      </div>
-
-      <div className='shopping-car'>
-        {Object.values(shoppingCart).map(product => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            style={{ width: '100px' }}
-            value={product.count}
-            onChange={onProductCountChange}
-          >
-            <ProductImage />
-            <ProductButtons />
+            {({ reset, increaseBy, isMaxCountReached, count }) => (
+              <>
+                <ProductImage className='custom-image' />
+                <ProductTitle className='text-light' />
+                <ProductButtons className='text-light custom-buttons' />
+                <button onClick={reset}>Reset</button>
+                <button onClick={() => increaseBy(-2)}> -2 </button>
+                {!isMaxCountReached && <button onClick={() => increaseBy(2)}> 2 </button>}
+                <span>{count}</span>
+              </>
+            )}
           </ProductCard>
         ))}
       </div>
